@@ -1,5 +1,6 @@
 function hiscatter(data; bin = 10,
     xaxis = :log10, yaxis = :log10, size = (600, 400), legend = :none,
+    xlabel = "x", ylabel = "p(x)",
     color = :black)
     a, b = minimum(data), maximum(data)
 
@@ -29,8 +30,11 @@ function hiscatter(data; bin = 10,
         
         return scatter(stat_class[well_defined], freq[well_defined],
         xaxis = xaxis, yaxis = yaxis, size = size, legend = legend,
+        xlabel = xlabel, ylabel = ylabel,
         color = color) # stat_class, freq
     else
         error("something")
     end
 end
+
+Plots.@deps scatter
