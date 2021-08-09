@@ -1,6 +1,6 @@
 module DynamicsPlots
 
-using Plots
+import Plots
 
 include("hiscatter.jl")
 
