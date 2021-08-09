@@ -1,7 +1,9 @@
 module DynamicsPlots
 
-import Plots
+using Plots
 
 include("hiscatter.jl")
+
+export hiscatter
 
 end
