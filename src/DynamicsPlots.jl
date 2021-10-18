@@ -1,6 +1,6 @@
 module DynamicsPlots
 
-using Plots
+using Plots, RecipesBase
 using DataFrames
 
 include("hiscatter.jl")
