@@ -5,7 +5,8 @@ using DataFrames
 
 include("hiscatter.jl")
 include("timeevolution.jl")
+include("pointcloud.jl")
 
-export hiscatter, timeevolution
+export hiscatter, timeevolution, pointcloud, circle!
 
 end

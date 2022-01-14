@@ -11,5 +11,5 @@ RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
 [compat]
 DataFrames = "1"
 Plots = "1"
-RecipesBase = "1"
+RecipesBase = "0-2"
 julia = "1"
