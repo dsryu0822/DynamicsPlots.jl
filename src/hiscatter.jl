@@ -1,40 +1,26 @@
-function hiscatter(data; bin = 10,
-    xaxis = :log10, yaxis = :log10, size = (600, 400), legend = :none,
-    xlabel = "x", ylabel = "p(x)",
-    color = :black)
-    a, b = minimum(data), maximum(data)
+@userplot HiScatter
+@recipe function f(hs::HiScatter)
+    data = hs.args[1]
+    bin = hs.args[2]
+    xaxis --> :log10
+    yaxis --> :log10
 
-    if typeof(bin) == Int
-        if xaxis == :linear
-            stat_class = collect((a:((b - a) / bin):b))
-        elseif xaxis == :log
-            stat_class = 10 .^ (range(log(a), log(b), length = bin+1))
-        elseif xaxis == :log2
-            stat_class = 10 .^ (range(log2(a), log2(b), length = bin+1))
-        else
-            stat_class = 10 .^ (range(log10(a), log10(b), length = bin+1))
-        end
-    else
-        stat_class = bin
+    bin += 1
+    m, M = minimum(data), maximum(data)
+    stat_class = 10 .^ LinRange(log10(m), log10(M), bin)
+    freq = [sum(data .< stat_class[2])]
+    for k in 2:(bin-1)
+        push!(freq, sum(stat_class[k] .≤ data .< stat_class[k+1]))
     end
-    
-    freq = zeros(Int64, bin)
-    freq[1] = sum(data .≤ stat_class[2])
-    for i = 2:bin
-        freq[i] = sum(stat_class[i] .< data .≤ stat_class[i+1])
-    end
-    pop!(stat_class)
-    
-    if length(data) == sum(freq)
-        well_defined = (freq .> 0)
-        
-        return scatter(stat_class[well_defined], freq[well_defined],
-        xaxis = xaxis, yaxis = yaxis, size = size, legend = legend,
-        xlabel = xlabel, ylabel = ylabel,
-        color = color) # stat_class, freq
-    else
-        error("something")
+    freq[end] += sum(data .≥ stat_class[end])
+    x = stat_class[2:end][freq .> 0]
+    y = freq[freq .> 0]
+    # length(data) == sum(y)
+    # println(bin)
+    @series begin
+        seriestype := :scatter
+        xticks --> (10.0 .^((-8):8))[m .≤ 10.0 .^((-8):8) .≤ M]
+        yticks --> (10.0 .^((-8):8))[stat_class[1] .≤ 10.0 .^((-8):8) .≤ stat_class[end]]
+        x, y
     end
 end
-
-Plots.@deps scatter

@@ -1,9 +1,9 @@
-using Plots, RecipesBase, Test
+include("../src/hiscatter.jl")
 
-include("../src/pointcloud.jl")
+using Distributions
+using Plots, RecipesBase
 
-P = randn(2,100)
-pointcloud(P)
+data = rand(Pareto(2),100)
 
-P = [randn(2) for _ in 1:100]
-pointcloud!(P, color = :red)
+hiscatter(data,10)
+hiscatter(data,20)
