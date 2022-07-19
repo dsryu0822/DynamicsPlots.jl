@@ -20,6 +20,7 @@ This plot uses matrix and vector of vector both.
     end
     @series begin
         # label --> :none
+        color --> ppt[column_index]
         seriestype := :scatter
         x, y
     end
