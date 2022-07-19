@@ -1,6 +1,3 @@
-using Plots
-
-
 ppt = (
     blue = colorant"#0070C0",
     red = colorant"#C00000",
@@ -25,10 +22,3 @@ ppt = (
 function PPT(n::Integer)
     return ppt[mod(n-1, length(ppt))+1]
 end
-
-PPT(3)
-p1 = plot()
-for k in 1:16
-    plot!(rand(10) .+ k, color = PPT(k), lw = 2)
-end
-p1
