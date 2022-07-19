@@ -4,7 +4,7 @@
 This plot uses given dataframe and its column names.
 """
 @userplot TimEvolution
-@recipe function f(te::TimeEvolution)
+@recipe function f(te::TimEvolution)
     df = te.args[1]
 
     column_names = names(df)
