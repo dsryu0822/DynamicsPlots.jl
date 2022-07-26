@@ -9,6 +9,6 @@ include("pointcloud.jl")
 include("geometry.jl")
 include("pptcolor.jl")
 
-export hiscatter, timeevolution, pointcloud, geometry, circle!
+export hiscatter, timeevolution, pointcloud, geometry, circle!, ppt, PPT
 
 end
